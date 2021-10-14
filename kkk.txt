@@ -1,0 +1,35 @@
+@client.command()
+async def button(ctx):
+			await ctx.send("Buttons!", components=[Button(label="Button", custom_id="button1")])
+
+
+@client.event
+async def on_button_click(ctx):
+			while True:
+				interaction = await client.wait_for(
+					"button_click", check=lambda inter: inter.custom_id == "button1"
+				)
+				await interaction.send(content = "Yay!")			
+				user = interaction.author.id							
+				guild_id = 826265381332713502
+				guild = client.get_guild(guild_id)							
+				category = guild.get_channel(896292044421607434)
+				if interaction.component.id == 'button1':
+							support_role = interaction.guild.get_role(896286664702443531)
+							overwrites = {
+								guild.default_role: discord.PermissionOverwrite(read_messages=False),
+								interaction.author: discord.PermissionOverwrite(read_messages=True, send_messages=True),
+								support_role: discord.PermissionOverwrite(read_messages=True, send_messages=True)
+							}
+							ticket_nr = random.randint(100,999)
+							fffffff = await category.create_text_channel(f'ticket-{ticket_nr}', overwrites=overwrites)
+							bbbbbbbbbbb = client.get_channel(fffffff.id)
+							role = await guild.create_role(name=f"ticket-{ticket_nr}")
+							await interaction.author.add_roles(role)
+							await bbbbbbbbbbb.send('Через 10 секунд произойдет удаление этого канала')
+							await bbbbbbbbbbb.send("Butdddtons!", components=[Button(label="Budddtton", custom_id="budddtton1")])
+							if button == 'budddtton1':
+								inter = await client.wait_for(
+									"button_click", check=lambda inter: inter.custom_id == "budddtton1"
+								)
+								await inter.respond(type = '4', content = 'Писос')
